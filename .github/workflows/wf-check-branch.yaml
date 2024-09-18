@@ -3,9 +3,6 @@ name: "Branch Check to Merge"
 on:
   pull_request:
     types: [opened, reopened, synchronize]
-    branches:
-      - 'stage'
-      - 'prod'
 
 jobs:
   check:
