@@ -1,7 +1,7 @@
 import IPv4Addr from "./IPv4Addr";
 import "./App.css";
 
-function App() {
+funcT App() {
   return (
     <div className="App">
       <header className="App-header">
