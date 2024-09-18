@@ -1,0 +1,40 @@
+name: "Build and Check"
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    name: "Job | Build and Check"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Step | Checkout"
+        uses:  actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: "Step | Setup Node"
+        uses: actions/setup-node@v4
+        with:
+          node-version: '15.x'
+
+      - name: "Step | Install dependencies"
+        run: |
+          npm ci
+      
+      - name: "Step | Run lint"
+        run: |
+          npm run lint
+        
+      - name: "Step | Run prettier"
+        run: |
+          npm install --save-dev --save-exact prettier
+          npm run prettier 
+
+      - name: "Step | Run tests"
+        run: |
+          npm run tests
+
+      - name: "Step | Run build"
+        run: |
+          npm run build
