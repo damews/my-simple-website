@@ -1,0 +1,34 @@
+name: "Branch Check to Merge"
+
+on:
+  pull_request:
+    branches:
+      - stage
+      - prod
+
+jobs:
+  check:
+    name: "Jobs | Check branch to merge"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Step | Check merge to STAGE"
+        if: ${{ github.base_ref == 'stage'}}
+        run: |
+          if ${{ github.head_ref == 'devel'}}; then
+            echo "Able to merge!"
+            exit 0
+          else
+            echo "Not able to merge!"
+            exit 1
+          fi
+
+      - name: "Step | Check merge to PROD"
+        if: ${{ github.base_ref == 'prod'}}
+        run: |
+          if ${{ github.head_ref == 'stage'}}; then
+            echo "Able to merge!"
+            exit 0
+          else
+            echo "Not able to merge!"
+            exit 1
+          fi
